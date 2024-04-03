@@ -18,4 +18,4 @@ class MainPage(BasePage):
     def search(self, search_query: str):
         self.search_input.fill(search_query)
         expect(self.search_input).to_be_visible()
-        self.search_btn.click()
+        self.search_prompt.first.click()

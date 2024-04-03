@@ -11,6 +11,4 @@ class BasePage:
 
     def load(self, path: str = '', lngVersion: str = 'pl') -> None:
         full_url = f'{self.URL}/{lngVersion}/{path}'  # Pełny adres URL
-        print('**********************************************')
-        print(full_url)
         self.page.goto(full_url)
