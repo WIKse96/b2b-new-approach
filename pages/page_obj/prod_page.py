@@ -1,7 +1,9 @@
+import time
+
 from playwright.sync_api import Page, expect
 from pages.locators.prod_card_page_locators import ProdCardPage_locators
-
 from pages.page_obj.base_page import BasePage
+from pages.locators.main_page_locators import MainPage_locators
 
 
 class ProdPage(BasePage):
@@ -10,12 +12,39 @@ class ProdPage(BasePage):
 
     def __init__(self, page: Page):
         super().__init__(page)
+        self.page = page
         self.sku_grouped = page.locator(ProdCardPage_locators.SKU_GROUPED)
         self.sku_marked = page.locator(ProdCardPage_locators.SKU_SIMPLE_marked)
+        self.qty_down_arrow = page.locator(ProdCardPage_locators.QTY_DOWN_ARROW)
+        self.qty_up_arrow = page.locator(ProdCardPage_locators.QTY_UP_ARROW)
+        self.qty_input = page.locator(ProdCardPage_locators.QTY_INPUT)
+        self.add_to_cart_btn = page.locator(ProdCardPage_locators.ADDTOCART_BTN)
+        self.qty_in_cart = page.locator(MainPage_locators.QTY_IN_CART)
 
     def assert_search(self, search_query: str):
         expect(self.sku_grouped).to_be_visible()
         expect(self.sku_marked).to_have_text(search_query)
 
-    def add_to_cart_by_arrow(self, qty: str):
-        pass
+    # w set_qty'+'; - dodaje '-' lub inny - odejmuje
+    def add_to_cart_by_arrow(self, set_qty: str):
+
+        if set_qty == '+':
+            initial_number = int(self.qty_input.input_value())
+            expected_number = initial_number + 1
+            self.qty_up_arrow.click()
+            assert initial_number < expected_number
+        else:
+            initial_number = int(self.qty_input.input_value())
+            expected_number = initial_number - 1
+            self.qty_down_arrow.click()
+            assert initial_number > expected_number
+
+        input_value = int(self.qty_input.input_value())
+        # assert self.qty_in_cart.text_content().strip() == "0"
+        self.add_to_cart_btn.click()
+        print(str(input_value))
+        print(self.qty_in_cart.text_content().strip())
+        time.sleep(3)
+        self.page.pause()
+        assert str(input_value).strip() == self.qty_in_cart.text_content().strip()
+
