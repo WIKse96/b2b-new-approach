@@ -4,6 +4,7 @@ from pages.page_obj.navbar import Navbar
 from pages.page_obj.main_page import MainPage
 from pages.page_obj.prod_page import ProdPage
 from pages.page_obj.login_page import LoginPage
+from pages.page_obj.cart_page import CartPage
 
 
 @pytest.fixture()
@@ -38,3 +39,7 @@ def prod_page(page: Page):
 def login_page(page: Page):
     # new_context(storage_state="state.json")
     return LoginPage(page)
+
+@pytest.fixture()
+def cart_page(page: Page):
+    return CartPage(page)

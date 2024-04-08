@@ -3,6 +3,6 @@ class MainPage_locators:
     SEARCH_BTN = "//button[@title='Szukaj']"
     SEARCH_PROMPTS = "//li[@class='mst-searchautocomplete__item magento_catalog_product']"
     QTY_IN_CART = "//span[@class='counter-number']"
-    CLEAR_CART = "//a[@title='Usuń produkt']"
+    REMOVE_PROD_FROM_CART = "//a[@title='Usuń produkt']"
     CONFIRM_CLEAR_CART = "//span[normalize-space()='OK']"
-    OK_BTN = "//div[@class='modal-inner-wrap']/footer[@class='modal-footer']/button[@type='button']"
+    OK_BTN = "//button[@class='action-close']"

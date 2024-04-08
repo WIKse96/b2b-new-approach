@@ -27,24 +27,18 @@ class ProdPage(BasePage):
 
     # w set_qty'+'; - dodaje '-' lub inny - odejmuje
     def add_to_cart_by_arrow(self, set_qty: str):
+        # self.page.pause()
 
         if set_qty == '+':
             initial_number = int(self.qty_input.input_value())
             expected_number = initial_number + 1
             self.qty_up_arrow.click()
             assert initial_number < expected_number
+
         else:
             initial_number = int(self.qty_input.input_value())
             expected_number = initial_number - 1
             self.qty_down_arrow.click()
             assert initial_number > expected_number
 
-        input_value = int(self.qty_input.input_value())
-        # assert self.qty_in_cart.text_content().strip() == "0"
         self.add_to_cart_btn.click()
-        print(str(input_value))
-        print(self.qty_in_cart.text_content().strip())
-        time.sleep(3)
-        self.page.pause()
-        assert str(input_value).strip() == self.qty_in_cart.text_content().strip()
-

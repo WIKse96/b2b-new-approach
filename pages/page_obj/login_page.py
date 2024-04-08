@@ -18,7 +18,7 @@ class LoginPage(BasePage):
 
 #Metoda do zapisania stanu zalogowania
     def save_context(self):
-        time.sleep(5)
+        time.sleep(1)
         context = self.page.context
         context.storage_state(path="state_login.json")
 
