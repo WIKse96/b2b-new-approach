@@ -18,6 +18,7 @@ class MainPage(BasePage):
         self.remove_prod_from_cart_btns = page.locator(MainPage_locators.REMOVE_PROD_FROM_CART)
         self.confirm_clear_cart_btn = page.locator(MainPage_locators.CONFIRM_CLEAR_CART)
         self.ok_btn = page.locator(MainPage_locators.OK_BTN)
+        self.goto_checkout_btn = page.locator(MainPage_locators.GOTOCHECKOUT_BTN)
 
     def search(self, search_query: str):
         self.search_input.fill(search_query)
@@ -38,3 +39,6 @@ class MainPage(BasePage):
                 self.remove_prod_from_cart_btns.nth(index).click()
                 self.confirm_clear_cart_btn.click()
 
+    def goto_checkout(self):
+        self.qty_in_cart.click()
+        self.goto_checkout_btn.click()

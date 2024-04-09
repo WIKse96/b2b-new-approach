@@ -5,15 +5,15 @@ from pages.page_obj.prod_page import ProdPage
 from pages.page_obj.main_page import MainPage
 from pages.page_obj.cart_page import CartPage
 
-@pytest.mark.run
-@pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
+# @pytest.mark.run
+# @pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
 def test_clear_cart(cart_page: CartPage):
     cart_page.load(cart_page.path)
 
     cart_page.remove_all()
     time.sleep(1)
-@pytest.mark.run
-@pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
+# @pytest.mark.run
+# @pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
 def test_add_arrow(prod_page: ProdPage, main_page: MainPage):
     prod_page.load(path=prod_page.path_prod_simple)
     time.sleep(2)

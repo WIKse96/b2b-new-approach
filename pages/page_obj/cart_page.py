@@ -15,7 +15,6 @@ class CartPage(BasePage):
     def remove_all(self):
         # to dziwne ale tylko ten sposób zadzaiałał
         for e in self.remove_prod.all():
-            print(0)
             self.remove_prod.nth(0).click()
             expect(self.empty_text.text_content()).to_have_text('Nie masz produktów w koszyku.')
 

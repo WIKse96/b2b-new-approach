@@ -6,3 +6,4 @@ class MainPage_locators:
     REMOVE_PROD_FROM_CART = "//a[@title='Usuń produkt']"
     CONFIRM_CLEAR_CART = "//span[normalize-space()='OK']"
     OK_BTN = "//button[@class='action-close']"
+    GOTOCHECKOUT_BTN = "//span[contains(text(),'Przejdź do kasy')]"
