@@ -13,7 +13,7 @@ def test_clear_cart(cart_page: CartPage):
     cart_page.remove_all()
     time.sleep(1)
 # @pytest.mark.run
-# @pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
+@pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
 def test_add_arrow(prod_page: ProdPage, main_page: MainPage):
     prod_page.load(path=prod_page.path_prod_simple)
     time.sleep(2)
