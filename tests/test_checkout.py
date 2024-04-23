@@ -3,7 +3,7 @@ import pytest
 from pages.page_obj.main_page import MainPage
 from pages.page_obj.checkout_page import CheckoutPage
 from pages.page_obj.prod_page import ProdPage
-@pytest.mark.run
+# @pytest.mark.run
 @pytest.mark.parametrize("browser_context_args", [
     {'storage_state': './state_login.json'}
 ])
