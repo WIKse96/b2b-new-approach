@@ -14,7 +14,7 @@ def test_login_incorrect_email(login_page: LoginPage):
     pass
 
 # @pytest.mark.run
-def test_login_icorrect_password(login_page: LoginPage):
+def test_login_incorrect_password(login_page: LoginPage):
     pass
 
 

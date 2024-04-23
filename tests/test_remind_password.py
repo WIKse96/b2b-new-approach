@@ -3,6 +3,8 @@ import time
 import pytest
 from secret_conf import EMAIL_FOR_REMIND
 from pages.page_obj.remind_pass_page import LostPasswordPage
+
+
 # @pytest.mark.run
 def test_lost_pasword(lostPassword_page: LostPasswordPage):
     lostPassword_page.load(path=lostPassword_page.path)
@@ -15,7 +17,8 @@ def test_lost_password_blank(lostPassword_page: LostPasswordPage):
     lostPassword_page.assertions()
     lostPassword_page.blank_inputs()
 
-@pytest.mark.run
+
+# @pytest.mark.run
 def test_invalid_email(lostPassword_page: LostPasswordPage):
     lostPassword_page.load(path=lostPassword_page.path)
     lostPassword_page.assertions()

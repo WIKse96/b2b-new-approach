@@ -5,10 +5,12 @@ from pages.locators.remind_pass_locators import Remind_pass_locator
 from playwright.sync_api import Page
 from pages.page_obj.base_page import BasePage
 
+
 class LostPasswordPage(BasePage):
     path = "customer/account/forgotpassword/"
 
     def __init__(self, page: Page):
+        super().__init__(page)
         self.page = page
         self.subimt_btn = page.locator(Remind_pass_locator.SUBMIT_BTN)
         self.title_page_pl = page.locator(Remind_pass_locator.TITLE)
@@ -25,13 +27,13 @@ class LostPasswordPage(BasePage):
         expect(self.capcha).to_be_visible()
         expect(self.reload_capcha_btn).to_be_enabled()
         expect(self.title_page_pl).to_have_text(self.pl_header)
+
     def fillout_form(self, email):
         capcha_img_state = self.capcha.get_attribute('src')
 
-
         self.reload_capcha_btn.click()
         capcha_img_state_new = self.capcha.get_attribute('src')
-        #sprawdzenie czy załadowal sie nowy obrazek
+        # sprawdzenie czy załadowal sie nowy obrazek
         assert capcha_img_state_new != capcha_img_state
         self.email_input.fill(email)
 
@@ -52,8 +54,3 @@ class LostPasswordPage(BasePage):
         self.email_input.fill("email@")
         self.subimt_btn.click()
         expect(self.email_error).to_have_text("Podaj poprawny adres email (np.: johndoe@domain.com).")
-
-
-
-
-

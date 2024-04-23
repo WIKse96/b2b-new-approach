@@ -1,19 +1,13 @@
 from pages.locators.navbar_locators import NavbarLocators
 from pages.page_obj.base_page import BasePage
-import dataclasses
 from playwright.sync_api import Page
 
-@dataclasses.dataclass
-class NavbarMenuOp_PL:
-    NEWEST: str = "Nowości"
-    FURNITURES: str = "Meble"
-    SLIDING_DOORS: str = "Systemy drzwi przesuwnych"
-    LEGS: str = "Nogi"
-    WOOD_TOPS: str = "Blaty"
+class NavbarMenuOp_PL(BasePage):
+    path = ""
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+        self.navbar = page.locator(NavbarLocators.NAV_LI)
 
     def get_all_texts(self):
-        return dataclasses.astuple(self)
-
-
-class Navbar(BasePage):
-    path = ''
+        print(self.navbar)

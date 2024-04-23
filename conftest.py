@@ -1,6 +1,6 @@
 import pytest
 from playwright.sync_api import Page
-from pages.page_obj.navbar import Navbar
+from pages.page_obj.navbar import NavbarMenuOp_PL
 from pages.page_obj.main_page import MainPage
 from pages.page_obj.prod_page import ProdPage
 from pages.page_obj.login_page import LoginPage
@@ -21,9 +21,9 @@ def browser_context_args(browser_context_args):
     }
 
 
-@pytest.fixture()
-def navbar(page: Page):
-    return Navbar(page)
+# @pytest.fixture()
+# def navbar(page: Page):
+#     return Navbar(page)
 
 
 @pytest.fixture()
@@ -53,3 +53,7 @@ def checkout_page(page: Page):
 @pytest.fixture()
 def lostPassword_page(page: Page):
     return LostPasswordPage(page)
+
+@pytest.fixture()
+def navbar(page: Page):
+    return NavbarMenuOp_PL(page)

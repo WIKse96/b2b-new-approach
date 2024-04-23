@@ -6,7 +6,7 @@ from pages.page_obj.main_page import MainPage
 from pages.page_obj.cart_page import CartPage
 
 # @pytest.mark.run
-# @pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
+@pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
 def test_clear_cart(cart_page: CartPage):
     cart_page.load(cart_page.path)
 
@@ -28,6 +28,7 @@ def test_add_arrow(prod_page: ProdPage, main_page: MainPage):
     assert int(initial_qty) < int(final_qty)
 
 
+@pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
 def test_clear_cart_listing(main_page: MainPage, prod_page: ProdPage):
     prod_page.load(path=prod_page.path_prod_simple)
     prod_page.add_to_cart_by_arrow('+')
