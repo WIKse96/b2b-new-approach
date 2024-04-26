@@ -11,7 +11,7 @@ class NavbarMenuOp_PL(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
         self.navbar = page.locator(NavbarLocators.NAV_LI)
-
+        self.page = page
         self.ROOT_NOWOSCI = page.get_by_role("link", name="Nowości")
         self.ROOT_MEBLE = page.get_by_role("link", name="Meble")
         self.ROOT_DRZWI = page.get_by_role("link", name="Systemy drzwi przesuwnych")
@@ -23,7 +23,7 @@ class NavbarMenuOp_PL(BasePage):
         self.ROOT_DRZ_ROZW = page.get_by_role("link", name="Drzwi rozwierane")
         self.ROOT_WYPRZ = page.get_by_role("link", name="Wyprzedaż")
 
-    def all_first(self, list):
+    def get_a_list_navbar(self, list_name):
         PARRENT_ROOT_DRZWI = self.page.get_by_role("listitem").filter(has=self.ROOT_DRZWI)
         PARRENT_ROOT_NOGI = self.page.get_by_role("listitem").filter(has=self.ROOT_NOGI)
         PARRENT_ROOT_BLATY = self.page.get_by_role("listitem").filter(has=self.ROOT_BLATY)
@@ -35,7 +35,7 @@ class NavbarMenuOp_PL(BasePage):
         PARRENT_ROOT_MEBLE = self.page.get_by_role("listitem").filter(has=self.ROOT_MEBLE)
         PARRENT_ROOT_NOWOSCI = self.page.get_by_role("listitem").filter(has=self.ROOT_NOWOSCI)
 
-        if list == 'parrents':
+        if list_name == 'parrents':
             parrents = [PARRENT_ROOT_MEBLE, PARRENT_ROOT_DEKORACJE,
                         PARRENT_ROOT_AKCESORIA, PARRENT_ROOT_KRANY,
                         PARRENT_ROOT_DRZWI]
@@ -47,18 +47,28 @@ class NavbarMenuOp_PL(BasePage):
 
     def container_submenu(self):
         navbar = NavbarMenuOp_PL(self.page)
-        for parrent in navbar.all_first('parrents'):
+        for parrent in navbar.get_a_list_navbar('parrents'):
 
             parrent.hover()
             expect(parrent.locator("div.container")).to_be_visible()
     def without_container_submenu(self):
         navbar = NavbarMenuOp_PL(self.page)
-        for parrent in navbar.all_first('non'):
+        for parrent in navbar.get_a_list_navbar('non'):
 
             parrent.hover()
             expect(parrent.locator("div.container")).not_to_be_visible()
 
-
+    # def get_submenu_links(self):
+    #     navbar = NavbarMenuOp_PL(self.page)
+    #
+    #     for element in navbar.get_a_list_navbar('parrents'):
+    #         element.hover()
+    #         # self.page.pause()
+    #
+    #         for li in element.locator("li.ui-menu-item.level1").all():
+    #             element.hover()
+    #             li.click()
+    #             time.sleep(2)
 
 
     def get_all_texts(self):
