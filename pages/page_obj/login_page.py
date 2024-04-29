@@ -13,14 +13,16 @@ class LoginPage(BasePage):
         self.email_input = page.locator(LoginPage_locators.EMAIL_INPUT)
         self.pass_input = page.locator(LoginPage_locators.PASS_INPUT)
         self.login_btn = page.locator(LoginPage_locators.LOGIN_BTN)
-
+    # Poprawne zalogowanie się
     def login(self, email, password):
         self.email_input.fill(email)
         self.pass_input.fill(password)
         self.login_btn.click()
 
-    # Metoda do zapisania stanu zalogowania
+    # Metoda do zapisania stanu zalogowania. Potem ten stan używamy za pomocą @pytest.mark.parametrize(
+    # "browser_context_args", [{'storage_state': './state_login.json'}]) w teście
     def save_context(self):
+        # Time sleep jest potrzebny bo stan nie zdąży się zapisać bez niego
         time.sleep(1)
         context = self.page.context
         context.storage_state(path="state_login.json")

@@ -19,12 +19,13 @@ class MainPage(BasePage):
         self.confirm_clear_cart_btn = page.locator(MainPage_locators.CONFIRM_CLEAR_CART)
         self.ok_btn = page.locator(MainPage_locators.OK_BTN)
         self.goto_checkout_btn = page.locator(MainPage_locators.GOTOCHECKOUT_BTN)
-
+    # Wyszukiwanie proste
     def search(self, search_query: str):
         self.search_input.fill(search_query)
         expect(self.search_input).to_be_visible()
         self.search_prompt.first.click()
 
+    # Czyszczenie małego koszyka z listingu
     def clear_cart_listing(self):
         index = 0
         self.qty_in_cart.click()

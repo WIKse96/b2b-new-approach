@@ -23,6 +23,7 @@ class CheckoutPage(BasePage):
         self.submit_discount_btn = page.locator(cp_loc.SUBMIT_DISCOUNT)
         self.show_discount_input = page.locator(cp_loc.SHOW_DISCOUNT_INPUT)
 
+    # Złożenie prostego zamówienia
     def simple_order(self, delivery: str = 'dpd', comment: str='testSDCSDSFDf', discount: int=0.1):
         expect(self.status_delivery).to_have_class(re.compile(r"_active"))
         if delivery not in ['dpd', 'flatrate']:
@@ -31,11 +32,13 @@ class CheckoutPage(BasePage):
             self.dpd.click()
         else:
             self.flatrate.click()
-
+        #Dodanie fejkowego tekstu
         if comment:
             Faker().text()
         self.next_btn.click()
+        # Sprawdzenie czy poprzednia sekcja jest aktywna i podświetlona
         expect(self.status_payment).to_have_class(re.compile(r"_active"))
+        # Wybranie metody płatności
         self.payment_meth.click()
         if discount > 1 or discount < 0:
             raise ValueError("Argument powinien być >0 i <=1")
@@ -43,7 +46,9 @@ class CheckoutPage(BasePage):
             self.show_discount_input.click()
             self.discout_input.fill('kupon')
             self.submit_discount_btn.click()
+        # Kliknięcie w złożenie zamówienia. ODKOMENTWAĆ DO OFICJALNYCH TESTÓW
         # self.order_btn.click()
 
+    # Otwarcie pola do wpisania nowego adresu
     def add_new_address(self, country: str = 'PL', save_address: bool = False):
         self.new_address_btn.click()

@@ -13,7 +13,7 @@ class CartPage(BasePage):
         self.empty_text = page.locator(CartPageLocators.EMPY_CART_TEXT)
 
     def remove_all(self):
-        # to dziwne ale tylko ten sposób zadzaiałał
+        # Usuwamy każdy element po kolei z koszyka
         for e in self.remove_prod.all():
             self.remove_prod.nth(0).click()
             expect(self.empty_text.text_content()).to_have_text('Nie masz produktów w koszyku.')

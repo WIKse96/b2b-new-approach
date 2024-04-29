@@ -1,3 +1,7 @@
 [
-  "tests/test_navbar.py::test_navbar_correct_links[chromium]"
+  "tests/test_add_to_cart.py::test_add_plus[chromium-browser_context_args0]",
+  "tests/test_login.py::test_login[chromium]",
+  "tests/test_navbar.py::test_navbar_correct_links[chromium]",
+  "tests/test_prod_page.py::test_download_link[chromium-browser_context_args0]",
+  "tests/test_prod_page.py::test_prod_grouped[chromium-browser_context_args0]"
 ]

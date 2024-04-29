@@ -2,13 +2,14 @@ import pytest
 from pages.page_obj.navbar import NavbarMenuOp_PL
 
 
-@pytest.mark.run
-def test_navbar_correct_links(navbar: NavbarMenuOp_PL, pytestconfig: pytest.Config) -> None:
+#ogólne testy navbaru
+# @pytest.mark.run
+def test_navbar(navbar: NavbarMenuOp_PL, pytestconfig: pytest.Config) -> None:
     navbar.load(path=navbar.path)
-    # ODKOMENTOWAC
-
     navbar.check_menu_root()
-    # Sprawdź czy wyświetla się/nie wyświetla container z submenu
+    # Sprawdź czy wyświetla się/nie wyświetla container z submenu.
     navbar.container_submenu()
     navbar.without_container_submenu()
+
+    #TODO: Dodać asercje i sprawdzenie linków pozycji w submenu
     # navbar.get_submenu_links()

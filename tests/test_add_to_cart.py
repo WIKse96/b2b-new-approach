@@ -14,6 +14,17 @@ def test_clear_cart(cart_page: CartPage):
     time.sleep(1)
 # @pytest.mark.run
 @pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
+def test_add_plus(prod_page: ProdPage, main_page: MainPage):
+    prod_page.load(path=prod_page.path_prod_prgr)
+    time.sleep(2)
+    initial_qty = prod_page.qty_in_cart.text_content().strip()
+    prod_page.add_to_cart_by_plus_minus('+')
+    prod_page.add_to_cart_by_plus_minus('+')
+    prod_page.add_to_cart_by_plus_minus('-')
+    final_qty = prod_page.qty_in_cart.text_content().strip()
+    assert int(initial_qty) < int(final_qty)
+
+@pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
 def test_add_arrow(prod_page: ProdPage, main_page: MainPage):
     prod_page.load(path=prod_page.path_prod_simple)
     time.sleep(2)

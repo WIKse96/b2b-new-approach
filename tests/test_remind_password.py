@@ -24,3 +24,5 @@ def test_invalid_email(lostPassword_page: LostPasswordPage):
     lostPassword_page.assertions()
     time.sleep(.1)
     lostPassword_page.invalid_email()
+    lostPassword_page.invalid_capcha()
+    lostPassword_page.empty_email()

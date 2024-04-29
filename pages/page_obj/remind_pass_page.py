@@ -28,6 +28,7 @@ class LostPasswordPage(BasePage):
         expect(self.reload_capcha_btn).to_be_enabled()
         expect(self.title_page_pl).to_have_text(self.pl_header)
 
+    # Wypełnienie formularza
     def fillout_form(self, email):
         capcha_img_state = self.capcha.get_attribute('src')
 
@@ -42,6 +43,7 @@ class LostPasswordPage(BasePage):
         # wpisanie capcha recznie
         # klikniecie w btn
 
+    #pozostawienie wsyzstkiego pstego. Oczekiwane błędy
     def blank_inputs(self):
         expect(self.capcha_error).not_to_be_visible()
         expect(self.email_error).not_to_be_visible()
@@ -50,7 +52,18 @@ class LostPasswordPage(BasePage):
         expect(self.capcha_error).to_be_visible(timeout=1000)
         expect(self.email_error).to_be_visible(timeout=1000)
 
+    # Niepoprawny email
     def invalid_email(self):
         self.email_input.fill("email@")
+        self.subimt_btn.click()
+        expect(self.email_error).to_have_text("Podaj poprawny adres email (np.: johndoe@domain.com).")
+    # Puste pole email
+    def empty_email(self):
+        self.email_input.fill("")
+        self.subimt_btn.click()
+        expect(self.email_error).to_have_text("Podaj poprawny adres email (np.: johndoe@domain.com).")
+    # Niepoprawna capcha
+    def invalid_capcha(self):
+        self.capcha_input.fill('żółćąś')
         self.subimt_btn.click()
         expect(self.email_error).to_have_text("Podaj poprawny adres email (np.: johndoe@domain.com).")
