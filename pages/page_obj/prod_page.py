@@ -91,5 +91,6 @@ class ProdPage(BasePage):
             assert initial_number > expected_number
 
         self.add_to_cart_btn.click()
+        pass
 
 
