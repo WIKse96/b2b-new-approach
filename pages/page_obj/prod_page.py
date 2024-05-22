@@ -43,7 +43,6 @@ class ProdPage(BasePage):
         self.prod_details_table.click()
         expect(self.prod_details_table).not_to_be_visible()
 
-
     def add_to_cart_by_plus_minus(self, set_qty: str):
         # self.page.pause()
         up_btn = self.qty_control_prgr.locator('//div/a/i[@class="porto-icon-up-dir"]')
@@ -67,9 +66,6 @@ class ProdPage(BasePage):
         expect(self.download).to_be_enabled()
         self.download.click()
 
-
-
-
     def assert_search(self, search_query: str):
         expect(self.sku_grouped).to_be_visible()
         expect(self.sku_marked).to_have_text(search_query)
@@ -91,5 +87,3 @@ class ProdPage(BasePage):
             assert initial_number > expected_number
 
         self.add_to_cart_btn.click()
-
-

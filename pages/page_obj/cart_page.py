@@ -15,6 +15,8 @@ class CartPage(BasePage):
     def remove_all(self):
         # Usuwamy każdy element po kolei z koszyka
         for e in self.remove_prod.all():
+            self.page.pause()
             self.remove_prod.nth(0).click()
-            expect(self.empty_text.text_content()).to_have_text('Nie masz produktów w koszyku.')
+
+        expect(self.empty_text).to_be_visible()
 

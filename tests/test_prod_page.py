@@ -11,7 +11,7 @@ def test_prod_grouped(prod_page: ProdPage):
     # Spec
     prod_page.check_prod_details()
 
-@pytest.mark.run
+# @pytest.mark.run
 @pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
 def test_download_link(prod_page: ProdPage):
     prod_page.load(prod_page.path_prod_prgr)
