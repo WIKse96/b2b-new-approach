@@ -1,1 +1,5 @@
-{}
+{
+  "tests/test_add_to_cart.py::test_clear_cart_listing[chromium-browser_context_args0]": true,
+  "tests/test_remind_password.py::test_invalid_email[chromium]": true,
+  "tests/test_search_markers.py::test_search[chromium]": true
+}

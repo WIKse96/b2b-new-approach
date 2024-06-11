@@ -1,7 +1,22 @@
 [
+  "tests/test_add_to_cart.py::test_add_arrow[chromium-browser_context_args0]",
   "tests/test_add_to_cart.py::test_add_plus[chromium-browser_context_args0]",
+  "tests/test_add_to_cart.py::test_clear_cart[chromium-browser_context_args0]",
+  "tests/test_add_to_cart.py::test_clear_cart_listing[chromium-browser_context_args0]",
+  "tests/test_category.py::test_addToCart[chromium-browser_context_args0]",
+  "tests/test_category.py::test_pagination[chromium]",
+  "tests/test_category.py::test_showAmount[chromium]",
+  "tests/test_checkout.py::test_simpleorder[chromium-browser_context_args0]",
+  "tests/test_filter.py::test_price_filter[chromium-browser_context_args0]",
   "tests/test_login.py::test_login[chromium]",
+  "tests/test_login.py::test_login_incorrect_email[chromium]",
+  "tests/test_login.py::test_login_incorrect_password[chromium]",
+  "tests/test_navbar.py::test_navbar[chromium]",
   "tests/test_navbar.py::test_navbar_correct_links[chromium]",
   "tests/test_prod_page.py::test_download_link[chromium-browser_context_args0]",
-  "tests/test_prod_page.py::test_prod_grouped[chromium-browser_context_args0]"
+  "tests/test_prod_page.py::test_prod_grouped[chromium-browser_context_args0]",
+  "tests/test_remind_password.py::test_invalid_email[chromium]",
+  "tests/test_remind_password.py::test_lost_password_blank[chromium]",
+  "tests/test_remind_password.py::test_lost_pasword[chromium]",
+  "tests/test_search_markers.py::test_search[chromium]"
 ]
