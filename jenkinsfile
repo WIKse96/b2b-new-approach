@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Test Login') {
+            steps {
+                script {
+                    // Uruchomienie testu logowania
+                    sh 'pytest -m login tests/test_login.py'
+                    // Stash state file for later use
+                    stash includes: 'state_login.json', name: 'state_login'
+                }
+            }
+        }
+        stage('Other Tests') {
+            steps {
+                script {
+                    // Unstash state file for use in other tests
+                    unstash 'state_login'
+                    // Uruchomienie innych testów
+                    sh 'pytest tests/'
+                }
+            }
+        }
+    }
+    post {
+        always {
+            // Archiwizowanie pliku z kontekstem na potrzeby inspekcji po zakończeniu pipeline
+            archiveArtifacts artifacts: 'state_login.json', allowEmptyArchive: true
+        }
+    }
+}
