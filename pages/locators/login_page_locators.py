@@ -4,3 +4,4 @@ class LoginPage_locators:
     LOGIN_BTN = "//button[@id='send2']"
     GOTO_CHECKOUT_BTN = "//span[contains(text(),'Przejdź do kasy')]"
     ERROR_LOGIN = "//div[@data-bind='html: message.text']"
+
