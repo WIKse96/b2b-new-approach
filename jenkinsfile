@@ -5,6 +5,8 @@ pipeline {
         stage('Test Login') {
             steps {
                 script {
+                    // Wyświetl zawartość katalogu roboczego
+                    sh 'ls -l'
                     // Uruchomienie testu logowania
                     sh 'pytest -m login tests/test_login.py'
                     // Stash state file for later use
@@ -17,6 +19,9 @@ pipeline {
                 script {
                     // Unstash state file for use in other tests
                     unstash 'state_login'
+                    // Sprawdź, czy plik został poprawnie unstashed
+                    sh 'ls -l'
+                    sh 'cat state_login.json'
                     // Uruchomienie innych testów
                     sh 'pytest tests/'
                 }
