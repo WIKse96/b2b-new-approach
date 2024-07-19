@@ -19,6 +19,13 @@ class MainPage(BasePage):
         self.confirm_clear_cart_btn = page.locator(MainPage_locators.CONFIRM_CLEAR_CART)
         self.ok_btn = page.locator(MainPage_locators.OK_BTN)
         self.goto_checkout_btn = page.locator(MainPage_locators.GOTOCHECKOUT_BTN)
+        self.swift_currency = page.locator(MainPage_locators.CURRENCIES_BTN)
+        self.swift_currency_li = page.locator(MainPage_locators.SWITCH_CURRENCY_LI)
+
+    def set_curr(self):
+        self.swift_currency.click()
+        self.swift_currency_li.click()
+        self.page.reload()
     # Wyszukiwanie proste
     def search(self, search_query: str):
         self.search_input.fill(search_query)

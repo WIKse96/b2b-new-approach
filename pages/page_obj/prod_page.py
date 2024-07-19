@@ -31,6 +31,7 @@ class ProdPage(BasePage):
         # download
         self.download = page.locator(ProdCardPage_locators.DOWNLOAD)
 
+    # def check_currency(self):
     # Sprawdź czy można otworzyć specyfikacje, zamknać i czy sie wyświetla poprawnie
     def check_prod_details(self):
         expect(self.prod_details_table).not_to_be_visible()

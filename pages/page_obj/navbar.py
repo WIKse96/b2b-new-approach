@@ -51,14 +51,13 @@ class NavbarMenuOp_PL(BasePage):
         navbar = NavbarMenuOp_PL(self.page)
         # Dla każdego z rodziców tworzy pętlę, następnie najeżdża na element i sprawdza czy div z klasa container jest widoczny
         for parrent in navbar.get_a_list_navbar('parrents'):
-
             parrent.hover()
             expect(parrent.locator("div.container")).to_be_visible()
+
     def without_container_submenu(self):
         navbar = NavbarMenuOp_PL(self.page)
         # Dla każdego z elementów bez submenu tworzy pętlę, następnie najeżdża na element i sprawdza czy div z klasa container jest niewidoczny
         for parrent in navbar.get_a_list_navbar('non'):
-
             parrent.hover()
             expect(parrent.locator("div.container")).not_to_be_visible()
 
@@ -73,7 +72,6 @@ class NavbarMenuOp_PL(BasePage):
                 element.hover()
                 li.click()
                 time.sleep(2)
-
 
     def get_all_texts(self):
         print(self.navbar)
@@ -117,7 +115,12 @@ class NavbarMenuOp_PL(BasePage):
         current_url = self.page.url
         assert "rozwierane" in current_url
 
-
         self.ROOT_WYPRZ.click()
         current_url = self.page.url
         assert "wyprzedaz" in current_url
+
+    def check_currency(self):
+        self.ROOT_KRANY.click()
+
+
+

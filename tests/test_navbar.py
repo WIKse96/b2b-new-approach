@@ -11,5 +11,6 @@ def test_navbar(navbar: NavbarMenuOp_PL, pytestconfig: pytest.Config) -> None:
     navbar.container_submenu()
     navbar.without_container_submenu()
 
+
     #TODO: Dodać asercje i sprawdzenie linków pozycji w submenu
     # navbar.get_submenu_links()

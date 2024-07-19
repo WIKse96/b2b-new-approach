@@ -17,3 +17,5 @@ class CategoryPage_locators:
     PROD_NAMES = "//strong[@class='product name product-item-name']/a[@class='product-item-link']"
 
     NEXT_PAGE = "(//li[@class='item pages-item-next'])[2]"
+
+    PRICE = "(//span[@class='price-wrapper ']//span[@class='price'])[1]"

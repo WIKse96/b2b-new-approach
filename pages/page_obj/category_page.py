@@ -9,6 +9,7 @@ from playwright.sync_api import Page, expect
 class CategoryPage(BasePage):
     path = 'meble/texas.html'
     path_legs = 'nogi.html'
+    path_taps = 'krany.html'
 
     def __init__(self, page: Page):
         super().__init__(page)
@@ -27,6 +28,11 @@ class CategoryPage(BasePage):
         self.next_page_btn = page.locator(CategoryPage_locators.NEXT_PAGE)
 
         self.prods_on_p_pages = []
+
+        self.listing_price = page.locator(CategoryPage_locators.PRICE)
+    def check_currency(self):
+        currency = self.listing_price.text_content()[-2:]
+        return currency
 
     # Check prices in listing are in range.
     def filter_price(self, start=10, end=55):
