@@ -1,6 +1,9 @@
+from pathlib import Path
+from slugify import slugify
 import pytest
 from playwright.sync_api import Page
 from pages.page_obj.category_page import CategoryPage
+from pages.page_obj.contact_page import ContactPage
 from pages.page_obj.navbar import NavbarMenuOp_PL
 from pages.page_obj.main_page import MainPage
 from pages.page_obj.prod_page import ProdPage
@@ -65,5 +68,28 @@ def navbar(page: Page):
 
 
 @pytest.fixture()
+def contact_page(page: Page):
+    return ContactPage(page)
+
+
+@pytest.fixture()
 def cat_page(page: Page):
-    return CategoryPage(page)
+    return (CategoryPage(page))
+
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    # Uruchom test i uzyskaj wynik
+    outcome = yield
+    report = outcome.get_result()
+
+    # Jeśli test nie powiódł się i był to etap wykonania
+    if report.when == 'call' and report.failed:
+        # Pobierz obiekt "page" jeśli jest dostępny w teście
+        page = item.funcargs.get('page')
+        if page:
+            # Zapisz zrzut ekranu do pliku
+            screenshot_path = f'screenshots/{item.name}.png'
+            page.screenshot(path=screenshot_path)
+            print(f'Zrzut ekranu zapisany do {screenshot_path}')
+
