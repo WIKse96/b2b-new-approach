@@ -9,8 +9,11 @@ class BasePage:
     def __init__(self, page: Page) -> None:
         self.page = page
 
-    # Metoda używana do otwarcia danej strony. lngVersion - kod językowy sklepu. Na razie oprogramowany jest tylko pl
-    def load(self, path: str = '', lngVersion: str = 'pl') -> None:
+    # Metoda używana do otwarcia danej strony. lngVersion - kod językowy sklepu. Na razie oprogramowany jest tylko pl. wait typ czekania zgodnie z dokumentacją
+    def load(self, path: str = '', lngVersion: str = 'pl', wait: str = '') -> None:
         # Zwraca ścieżkę pełnego url. Baza/wersja językowa/reszta ścieżki podana w klasie definiującej obiekty.
         full_url = f'{self.URL}/{lngVersion}/{path}'  # Pełny adres URL
-        self.page.goto(full_url)
+        if wait == '':
+            self.page.goto(full_url)
+        else:
+            self.page.goto(full_url, wait_until = wait)
