@@ -33,6 +33,19 @@ class ContactPage(BasePage):
         self.email_error = page.locator(ContactPageLocators.EMAIL_ERROR)
         self.rodo_error = page.locator(ContactPageLocators.RODO_ERROR)
 
+    def get_errors(self):
+        errors = {
+            'name_error': self.name_error,
+            'subject_error':  self.subject_error,
+            'comment_error': self.comment_error,
+            'email_error': self.email_error,
+            'rodo_error': self.rodo_error
+        }
+        return errors
+
+    def submit_click(self):
+        self.submit.click(force=True)
+        self.submit.click(force=True)
 
     def map_checker(self):
         google_map = self.page.frame_locator('iframe >> nth=0').locator('.gm-style > div > div:nth-child(2)')
@@ -47,29 +60,27 @@ class ContactPage(BasePage):
         expect(self.phone_nr_link).to_be_visible()
         expect(self.email_link).to_be_enabled()
         expect(self.email_link).to_be_enabled()
-    def blank_form(self):
-        self.company_name.fill('')
-        self.subject.fill('')
-        self.email.fill('')
-        self.phone.fill('')
-        self.message.fill('')
-        self.subject.fill('')
-        # self.page.pause()
-        self.rodo_checkbox.uncheck()
-        time.sleep(4)
 
-        self.submit.click()
-        errors = [self.name_error, self.rodo_error, self.email_error, self.comment_error, self.subject_error]
-        # Errors are visible
-        for error in errors:
-            expect(error, "Error niewidoczny").to_be_visible()
+    def compan_name_only(self, string: str):
 
-    def only_rodo(self):
-        self.rodo_checkbox.check()
-        self.submit.click()
-        expect(self.rodo_error).to_be_hidden()
-        errors = [self.name_error, self.email_error, self.comment_error, self.subject_error]
-        # Errors are visible
-        for error in errors:
-            expect(error, "Error niewidoczny").to_be_visible()
+        self.company_name.fill(string)
 
+    def subject_only(self, string: str):
+        self.subject.fill(string)
+
+    def email_only(self, string: str):
+        self.email.fill(string)
+
+    def phone_only(self, string: str):
+        self.phone.fill(string)
+
+    def message_only(self, string: str):
+        self.message.fill(string)
+
+    def rodo_only(self, check: bool):
+        if check:
+            self.rodo_checkbox.check()
+        else:
+            self.rodo_checkbox.uncheck()
+    def pause(self):
+        self.page.pause()

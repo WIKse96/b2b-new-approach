@@ -64,13 +64,13 @@ def test_map_vsibility(contact_page: ContactPage):
 @pytest.mark.run
 @pytest.mark.parametrize("company_name, subject, email, message, rodo, phone_nr",
                          [
-                         # ('', '', '', '', False, ''),  # Wszystko puste
-                         #  ('', '', '', '', True, ''),  # Wszystko puste, checkbox zaznaczony
-                         #  ('NAZWA FIRMY ĄŚĆŻ', '', '', '', False, ''),  # Tylko company_name
-                         #  ('', '', '', '', False, '55566644-'),  # Tylko telefon
-                         #  ('', '', 'test@seart.pl', '', False, ''),  # Tylko email
-                          # ('', '', '', 'Wiadomość żźćół 86 /*-', False, ''),  # Tylko wiadomość
-                          # ('', '', '', '', True),  # Przypadek pozytywny
+                         ('', '', '', '', False, ''),  # Wszystko puste
+                          ('', '', '', '', True, ''),  # Wszystko puste, checkbox zaznaczony
+                          ('NAZWA FIRMY ĄŚĆŻ', '', '', '', False, ''),  # Tylko company_name
+                          ('', '', '', '', False, '55566644-'),  # Tylko telefon
+                          ('', '', 'test@seart.pl', '', False, ''),  # Tylko email
+                          ('', '', '', 'Wiadomość żźćół 86 /*-', False, ''),  # Tylko wiadomość
+                          ('', '', '', '', True),  # Przypadek pozytywny
                           ('', '', 'test.seart.pl', '', False, ''),  # Niepoprawny email (bez @)
                           ('', '', 'test@pl', '', False, ''), # Niepoprawny email (bez .com)
                           ])
