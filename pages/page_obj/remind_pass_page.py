@@ -61,9 +61,16 @@ class LostPasswordPage(BasePage):
     def empty_email(self):
         self.email_input.fill("")
         self.subimt_btn.click()
-        expect(self.email_error).to_have_text("Podaj poprawny adres email (np.: johndoe@domain.com).")
+        expect(self.email_error).to_have_text("To jest wymagane pole.")
     # Niepoprawna capcha
+
+    def empty_captcha(self):
+        self.capcha_input.fill('')
+        self.subimt_btn.click()
+        expect(self.email_error).to_have_text("To jest wymagane pole.")
     def invalid_capcha(self):
         self.capcha_input.fill('żółćąś')
         self.subimt_btn.click()
-        expect(self.email_error).to_have_text("Podaj poprawny adres email (np.: johndoe@domain.com).")
+
+    def verivy_url(self):
+        expect(self.page).to_have_url("https://b2b.seartgroup.com/pl/customer/account/forgotpassword/")

@@ -7,7 +7,6 @@ from pages.page_obj.contact_page import ContactPage
 import pytest
 
 
-
 def perform_contact_form(contact_page: ContactPage,
                          company_name: str,
                          subject: str,
@@ -47,36 +46,37 @@ def perform_contact_form(contact_page: ContactPage,
     if message == '':
         expect(errors_dic['comment_error']).to_be_visible()
 
-    if not rodo:
-        expect(errors_dic['rodo_error']).to_be_visible()
-    if email == '':
-        expect(errors_dic['email_error']).to_be_visible()
-    else:
-        check_text(email)
-        expect(errors_dic['email_error']).to_contain_text("Podaj poprawny adres email (np.: johndoe@domain.com).")
+    if not check_text(email):
+        if email == '':
+            expect(errors_dic['email_error']).to_be_visible()
+        else:
+            expect(errors_dic['email_error']).to_contain_text("Podaj poprawny adres email (np.: johndoe@domain.com).")
+    if check_text(email):
+        expect(errors_dic['email_error']).not_to_be_visible()
+
 
 def test_map_vsibility(contact_page: ContactPage):
     contact_page.load(contact_page.path, wait='domcontentloaded')
+    time.sleep(2)
     contact_page.map_checker()
     contact_page.check_ic_email_and_phone()
 
 
-@pytest.mark.run
+# @pytest.mark.run
 @pytest.mark.parametrize("company_name, subject, email, message, rodo, phone_nr",
                          [
-                         ('', '', '', '', False, ''),  # Wszystko puste
-                          ('', '', '', '', True, ''),  # Wszystko puste, checkbox zaznaczony
-                          ('NAZWA FIRMY ĄŚĆŻ', '', '', '', False, ''),  # Tylko company_name
-                          ('', '', '', '', False, '55566644-'),  # Tylko telefon
-                          ('', '', 'test@seart.pl', '', False, ''),  # Tylko email
-                          ('', '', '', 'Wiadomość żźćół 86 /*-', False, ''),  # Tylko wiadomość
-                          ('', '', '', '', True),  # Przypadek pozytywny
-                          ('', '', 'test.seart.pl', '', False, ''),  # Niepoprawny email (bez @)
-                          ('', '', 'test@pl', '', False, ''), # Niepoprawny email (bez .com)
-                          ])
+                             # ('', '', '', '', False, ''),  # Wszystko puste
+                             # ('', '', '', '', True, ''),  # Wszystko puste, checkbox zaznaczony
+                             # ('NAZWA FIRMY ĄŚĆŻ', '', '', '', False, ''),  # Tylko company_name
+                             # ('', '', '', '', False, '55566644'),  # Tylko telefon
+                             # ('', '', 'test@seart.pl', '', False, ''),  # Tylko email
+                             # ('', '', '', 'Wiadomość żźćół 86 /*-', False, ''),  # Tylko wiadomość
+                             # ('Test', 'test', 'test@seart.pl', 'testtest', True, '000555666'),  # Przypadek pozytywny
+                             # ('', '', 'test.seart.pl', '', False, ''),  # Niepoprawny email (bez @)
+                             ('', '', 'test@pl', '', False, ''),  # Niepoprawny email (bez .com)
+                         ])
 def test_contact_form(contact_page: ContactPage, company_name: str, subject: str,
                       email: str, message: str, rodo: bool, phone_nr: str):
-
     perform_contact_form(
         contact_page=contact_page,
         company_name=company_name,

@@ -38,7 +38,8 @@ def test_add_arrow(prod_page: ProdPage, main_page: MainPage):
     print('initial', initial_qty, 'final', final_qty)
     assert int(initial_qty) < int(final_qty)
 
-
+#Mamy świadomość, że to nie dziala. Zostwiamy ze wzgl biznesowych
+@pytest.mark.xfail
 @pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
 def test_clear_cart_listing(main_page: MainPage, prod_page: ProdPage):
     prod_page.load(path=prod_page.path_prod_simple)

@@ -11,7 +11,8 @@ class ProdCardPage_locators:
     DOWNLOAD = "//span[@class='mp-attachment-tab__item__name']"
 
     # Locators for simple products
-    PRICE_SIMPLE = "//span[@class='price']"
+    PRICE= "//span[@class='price']"
+
     ADDTOCART_BTN = "//button[@type='submit'][@id='product-addtocart-button']"
     ADDTOCART_BTN_PRGR = "//button[@type='submit'][@id='product-addtocart-button']"
     QTY_INPUT = "//input[@id='qty'][@type='number']"

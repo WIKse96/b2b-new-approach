@@ -30,8 +30,17 @@ class ProdPage(BasePage):
         self.prod_details_btn = page.locator(ProdCardPage_locators.SPEC_GR)
         # download
         self.download = page.locator(ProdCardPage_locators.DOWNLOAD)
+        # ceny
+        self.price = page.locator(ProdCardPage_locators.PRICE).first
 
     # Sprawdź czy można otworzyć specyfikacje, zamknać i czy sie wyświetla poprawnie
+    def check_price(self, currency):
+        current_currency = self.price.text_content()
+        if currency == "pln":
+            assert current_currency[-1] == "ł"
+        if currency == "eur":
+            assert current_currency[-1] == "€"
+
     def check_prod_details(self):
         expect(self.prod_details_table).not_to_be_visible()
         self.prod_details_btn.first.click()
@@ -40,7 +49,8 @@ class ProdPage(BasePage):
         expect(self.prod_details_table).not_to_be_visible()
         self.prod_details_btn.first.click()
         expect(self.prod_details_table).to_be_visible()
-        self.prod_details_table.click()
+
+        self.page.locator("//body").click(position={ "x": 20, "y": 150})
         expect(self.prod_details_table).not_to_be_visible()
 
     def add_to_cart_by_plus_minus(self, set_qty: str):
@@ -67,7 +77,9 @@ class ProdPage(BasePage):
         self.download.click()
 
     def assert_search(self, search_query: str):
+        time.sleep(2)
         expect(self.sku_grouped).to_be_visible()
+        time.sleep(2)
         expect(self.sku_marked).to_have_text(search_query)
 
     # w set_qty'+'; - dodaje '-' lub inny - odejmuje - używane do zwiększenia lub zmniejszenia ilośći dodanej do koszyka

@@ -79,8 +79,7 @@ class ContactPage(BasePage):
 
     def rodo_only(self, check: bool):
         if check:
-            self.rodo_checkbox.check()
-        else:
-            self.rodo_checkbox.uncheck()
+            self.rodo_checkbox.click()
+
     def pause(self):
         self.page.pause()

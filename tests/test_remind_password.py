@@ -22,7 +22,9 @@ def test_lost_password_blank(lostPassword_page: LostPasswordPage):
 def test_invalid_email(lostPassword_page: LostPasswordPage):
     lostPassword_page.load(path=lostPassword_page.path)
     lostPassword_page.assertions()
-    time.sleep(.1)
+    time.sleep(1)
     lostPassword_page.invalid_email()
     lostPassword_page.invalid_capcha()
     lostPassword_page.empty_email()
+    lostPassword_page.empty_captcha()
+    lostPassword_page.verivy_url()

@@ -7,3 +7,5 @@ class MainPage_locators:
     CONFIRM_CLEAR_CART = "//span[normalize-space()='OK']"
     OK_BTN = "//button[@class='action-close']"
     GOTOCHECKOUT_BTN = "//span[contains(text(),'Przejdź do kasy')]"
+    CURRENCY_SWITCHER = "(//div[@id='switcher-currency-trigger']//span)[1]"
+    CURRENCY_LI = "//ul[@id='ui-id-1']/li/a"

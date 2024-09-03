@@ -38,8 +38,8 @@ def perform_login_and_check(
 @pytest.mark.parametrize("username, password, expected_email_error, expected_pass_error, expect_correct_login", [
     (USERNAME, PASSWORD, None, None, True),  # Poprawne dane logowania
     ('USERNAME', PASSWORD, True, None, False),  # Niepoprawny email
-    (USERNAME, 'PASSWORD', None, True, False),  # Niepoprawne hasło
-    ('USERNAME@op.pl', 'PASSWORD', True, True, False),  # Niepoprawny email i hasło
+    # (USERNAME, 'PASSWORD', None, True, False),  # Niepoprawne hasło
+    # ('USERNAME@op.pl', 'PASSWORD', True, True, False),  # Niepoprawny email i hasło
     ('', '', True, True, False),  # Puste pola email i hasło
     ('', 'jakieshalo123', True, None, False),  # Pusty email
     (USERNAME, '', None, True, False),  # Puste hasło

@@ -19,6 +19,8 @@ class MainPage(BasePage):
         self.confirm_clear_cart_btn = page.locator(MainPage_locators.CONFIRM_CLEAR_CART)
         self.ok_btn = page.locator(MainPage_locators.OK_BTN)
         self.goto_checkout_btn = page.locator(MainPage_locators.GOTOCHECKOUT_BTN)
+        self.currency_switch_btn = page.locator(MainPage_locators.CURRENCY_SWITCHER)
+        self.currency_li = page.locator(MainPage_locators.CURRENCY_LI)
     # Wyszukiwanie proste
     def search(self, search_query: str):
         self.search_input.fill(search_query)
@@ -43,3 +45,9 @@ class MainPage(BasePage):
     def goto_checkout(self):
         self.qty_in_cart.click()
         self.goto_checkout_btn.click()
+    #
+    # def change_currency(self, currency: str):
+    #     # self.page.pause()
+    #     self.page.goto("https://b2b.seartgroup.com/pl/currency=PLN&uenc=aHR0cHM6Ly9iMmIuc2VhcnRncm91cC5jb20vcGwvZHJ6d2ktei1sdXN0cmVtLW1pcnJvci5odG1s&form_key=oYMm9C0Z5DkvwhXH")
+
+

@@ -6,6 +6,7 @@ from pages.page_obj.base_page import BasePage
 from faker import Faker
 
 class CheckoutPage(BasePage):
+    path = 'checkout/#shipping'
     def __init__(self, page:Page):
         super().__init__(page)
         self.page = page

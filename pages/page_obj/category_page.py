@@ -3,6 +3,7 @@ import time
 from pages.page_obj.base_page import BasePage
 from pages.locators.main_page_locators import MainPage_locators
 from pages.locators.category_locators import CategoryPage_locators
+
 from playwright.sync_api import Page, expect
 
 
@@ -55,15 +56,21 @@ class CategoryPage(BasePage):
         assert int(qty_in_cart_final) > int(qty_in_cart_initial), "Błąd koszyka. Wartość się nie aktualizuje"
 
     # amount - How many  show prods, 12,24,36,all
+
     def changeAmountOnListing(self, amount):
         if amount in ["12", "24", "36"]:
             self.set_amount_on_listing.select_option(amount)
             time.sleep(1)
+            print(amount)
             assert len(self.prods_on_listing) <= int(amount), "Ilość produktów na listingu nie koresponduje z selectem"
             for element in self.pagination:
                 expect(element).to_be_visible()
             if amount == "12":
                 self.page.wait_for_url(f"**/{self.path_legs}")
+            elif amount == "24":
+                self.page.wait_for_url(f"**/{self.path_legs}?product_list_limit={int(amount)}")
+            elif amount == "36":
+                self.page.wait_for_url(f"**/{self.path_legs}?product_list_limit={int(amount)}")
             else:
                 self.page.wait_for_url(f"**/{self.path_legs}?product_list_limit={int(amount)}")
         else:
@@ -92,5 +99,4 @@ class CategoryPage(BasePage):
 
     def checkPaginationAPI(self, pageIndex):
         self.page.goto(f"https://b2b.seartgroup.com/pl/{self.path_legs}?p={str(pageIndex)}")
-        assert self.page.locator(CategoryPage_locators.PROD_NAMES).all() , 'No products on site'
-
+        assert self.page.locator(CategoryPage_locators.PROD_NAMES).all(), 'No products on site'
