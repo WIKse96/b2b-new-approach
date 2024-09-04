@@ -21,6 +21,8 @@ class AccountPage(BasePage):
         self.nip_input = AccountPageLocators.NIP_by_label(page)
         self.save_data_btn = AccountPageLocators.save_data(page)
         self.data_saved_info_i = AccountPageLocators.data_saved_info(page)
+        self.change_email_checkbox = AccountPageLocators.change_email_checkbox(page)
+        self.change_passw_checkbox = AccountPageLocators.change_password_checkbox(page)
 
     def verify_nav(self, current: str):
         # self.page.pause()
@@ -65,8 +67,19 @@ class AccountPage(BasePage):
         expect(self.surname_input).to_have_value(surname)
         expect(self.nip_input).to_have_value(nip)
 
-    def change_email(self, new_email):
-        pass
+    def change_creditials(self, new_email, new_password):
+        self.change_contact_data_btn.click()
+        if new_email != '' and new_password == '':
+            # Jeśli wpisany jest email a hasło puste
+            pass
+        elif new_email == '' and new_password != '':
+            # jeśli email pusty, a haslo uzupelnione
+            pass
+        elif new_email == '' and new_password == '':
+            # hasło i email puste
+            pass
+        else:
+            # Oba pola uzupełnione
+            pass
 
-    def change_password(self, new_password):
-        pass
+

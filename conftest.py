@@ -11,6 +11,7 @@ from pages.page_obj.login_page import LoginPage
 from pages.page_obj.cart_page import CartPage
 from pages.page_obj.checkout_page import CheckoutPage
 from pages.page_obj.remind_pass_page import LostPasswordPage
+from pages.page_obj.account_page import AccountPage
 
 
 @pytest.fixture()
@@ -74,22 +75,29 @@ def contact_page(page: Page):
 
 @pytest.fixture()
 def cat_page(page: Page):
-    return (CategoryPage(page))
+    return CategoryPage(page)
 
-#TODO: Odkomentować
-# @pytest.hookimpl(tryfirst=True, hookwrapper=True)
-# def pytest_runtest_makereport(item, call):
-#     # Uruchom test i uzyskaj wynik
-#     outcome = yield
-#     report = outcome.get_result()
-#
-#     # Jeśli test nie powiódł się i był to etap wykonania
-#     if report.when == 'call' and report.failed:
-#         # Pobierz obiekt "page" jeśli jest dostępny w teście
-#         page = item.funcargs.get('page')
-#         if page:
-#             # Zapisz zrzut ekranu do pliku
-#             screenshot_path = f'screenshots/{item.name}.png'
-#             page.screenshot(path=screenshot_path)
-#             print(f'Zrzut ekranu zapisany do {screenshot_path}')
+@pytest.fixture()
+def account_page(page: Page):
+    return AccountPage(page)
 
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    pytest_html = item.config.pluginmanager.getplugin("html")
+    outcome = yield
+    screen_file = ''
+    report = outcome.get_result()
+    extra = getattr(report, "extra", [])
+    if report.when == "call":
+        xfail = hasattr(report, "wasxfail")
+        if report.failed or xfail and "page" in item.funcargs:
+            page = item.funcargs["page"]
+            screenshot_dir = Path("screenshots")
+            screenshot_dir.mkdir(exist_ok=True)
+            screen_file = str(screenshot_dir / f"{slugify(item.nodeid)}.png")
+            page.screenshot(path=screen_file)
+
+        if (report.skipped and xfail) or (report.failed and not xfail):
+            # add the screenshots to the html report
+            extra.append(pytest_html.extras.png(screen_file))
+        report.extra = extra

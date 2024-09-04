@@ -1,5 +1,18 @@
 {
-  "tests/test_add_to_cart.py::test_clear_cart_listing[chromium-browser_context_args0]": true,
-  "tests/test_remind_password.py::test_invalid_email[chromium]": true,
-  "tests/test_search_markers.py::test_search[chromium]": true
+  "tests/test_search_markers.py::test_search[chromium]": true,
+  "tests/test_contact.py::test_contact_rodo_only[chromium]": true,
+  "tests/test_login.py::test_login[chromium-test@seart.pl-PASSWORD-None-True-False]": true,
+  "tests/test_login.py::test_login[chromium-USERNAME@op.pl-PASSWORD-True-True-False]": true,
+  "tests/test_contact.py::test_contact_form[chromium-----False-False-False-False-True]": true,
+  "tests/test_contact.py::test_contact_form[chromium-----False]": true,
+  "tests/test_contact.py::test_contact_form[chromium]": true,
+  "tests/test_prod_page.py::test_change_currency_simple[chromium]": true,
+  "tests/test_prod_page.py::test_change_currency_simple[chromium-browser_context_args0]": true,
+  "tests/test_contact.py::test_contact_form[chromium-----True-]": true,
+  "tests/test_contact.py::test_contact_form[chromium-Test-test-test@seart.pl-testtest-True-000555666]": true,
+  "tests/test_contact.py::test_map_vsibility[chromium]": true,
+  "tests/test_category.py::test_showAmount[chromium]": true,
+  "tests/test_account.py::test_assertions[chromium-browser_context_args0]": true,
+  "tests/test_account.py::test_change_data[chromium-browser_context_args0]": true,
+  "tests/test_account.py::test_set_default[chromium-browser_context_args0]": true
 }

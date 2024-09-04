@@ -11,7 +11,7 @@ def test_change_data(account_page: AccountPage):
     account_page.verify_nav("Moje konto")
     account_page.change_contact_data("rikor", "wiktorowicz", 'nowy nip', False)
 
-@pytest.mark.run
+# @pytest.mark.run
 @pytest.mark.parametrize("browser_context_args", [{'storage_state': './state_login.json'}])
 def test_set_default(account_page: AccountPage):
     account_page.load(account_page.path, wait='domcontentloaded')

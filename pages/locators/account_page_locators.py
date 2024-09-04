@@ -7,6 +7,7 @@ class AccountPageLocators:
     CONTACT_DATA = "//div[@class='box box-information']/div[@class='box-content']/p"
     CHANGE_CONTACT_DATA = "//div[@class='box box-information']//span[contains(text(),'Zmień')]"
     DATA_P = "//div[@class='box box-information']//span[contains(text(),'Zmień')]"
+    H2_PASS_OR_EMAIL = "//span[@class='change-email-password']"
 
     # metody dla get by text, role i label
     @staticmethod
@@ -28,3 +29,11 @@ class AccountPageLocators:
     @staticmethod
     def data_saved_info(page: Page):
         return page.get_by_text("Dane konta zostały zapisane.")
+
+    @staticmethod
+    def change_email_checkbox(page: Page):
+        return page.get_by_label('Zmień adres email')
+
+    @staticmethod
+    def change_password_checkbox(page: Page):
+        return page.get_by_label('Zmień hasło')
