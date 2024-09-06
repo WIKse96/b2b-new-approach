@@ -9,3 +9,4 @@ class MainPage_locators:
     GOTOCHECKOUT_BTN = "//span[contains(text(),'Przejdź do kasy')]"
     CURRENCY_SWITCHER = "(//div[@id='switcher-currency-trigger']//span)[1]"
     CURRENCY_LI = "//ul[@id='ui-id-1']/li/a"
+

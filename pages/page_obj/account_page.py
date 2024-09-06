@@ -3,6 +3,7 @@ import pytest
 from playwright.sync_api import Page, expect
 from pages.page_obj.base_page import BasePage
 from pages.locators.account_page_locators import AccountPageLocators
+from secret_conf import PASSWORD
 
 
 class AccountPage(BasePage):
@@ -14,6 +15,11 @@ class AccountPage(BasePage):
         self.nav_ul_account = page.locator(AccountPageLocators.NAV_ACCOUNT)
         self.contact_data = page.locator(AccountPageLocators.CONTACT_DATA)
         self.change_contact_data_btn = page.locator(AccountPageLocators.CHANGE_CONTACT_DATA)
+        self.h2_change_email_password = page.locator(AccountPageLocators.H2_PASS_OR_EMAIL)
+        self.current_password_Error = page.locator(AccountPageLocators.CURRENT_PASSW_ERROR)
+        self.email_Error = page.locator(AccountPageLocators.CURRENT_EMAIL_ERROR)
+        self.new_password_Error = page.locator(AccountPageLocators.NEW_PASSW_ERROR)
+        self.confirm_password_Error = page.locator(AccountPageLocators.CONFIRM_PASSW_ERROR)
 
         # get_by zamiast locator
         self.name_input = AccountPageLocators.name_by_label(page)
@@ -23,6 +29,13 @@ class AccountPage(BasePage):
         self.data_saved_info_i = AccountPageLocators.data_saved_info(page)
         self.change_email_checkbox = AccountPageLocators.change_email_checkbox(page)
         self.change_passw_checkbox = AccountPageLocators.change_password_checkbox(page)
+
+        self.confirm_passw_input = AccountPageLocators.confirm_passw_input(page)
+        self.email_input = AccountPageLocators.email_input(page)
+        self.new_password_input = AccountPageLocators.new_password_input(page)
+        self.current_password_input = AccountPageLocators.current_password_input(page)
+
+        self.save_data_btn = AccountPageLocators.save_data_btn(page)
 
     def verify_nav(self, current: str):
         # self.page.pause()
@@ -67,19 +80,54 @@ class AccountPage(BasePage):
         expect(self.surname_input).to_have_value(surname)
         expect(self.nip_input).to_have_value(nip)
 
-    def change_creditials(self, new_email, new_password):
+    def save_creditials(self, email: str, passw: str):
+        if email == '':
+            pass
+        elif passw == '':
+            pass
+
+    def change_creditials(self, new_email: str, new_password: str):
         self.change_contact_data_btn.click()
         if new_email != '' and new_password == '':
             # Jeśli wpisany jest email a hasło puste
-            pass
+            self.change_email_checkbox.click()
+            expect(self.h2_change_email_password).to_have_text("Zmień adres email")
+            self.email_input.fill(new_email)  # uzupełnij pole email
+            self.current_password_input(PASSWORD)  # uzupełnij pole hasło
+            # Kliknij zapisz
+            self.save_creditials(new_email, new_password)
+
         elif new_email == '' and new_password != '':
             # jeśli email pusty, a haslo uzupelnione
-            pass
+            self.change_passw_checkbox.click()
+            # aktualne haslo
+            self.current_password_input.fill(PASSWORD)
+            # nowe haslo
+            self.new_password_input.fill(new_password)
+            # potwierdz haslo
+            self.confirm_passw_input.fill(new_password)
+            expect(self.h2_change_email_password).to_have_text("Zmień hasło")
+
+            self.save_creditials(new_email, new_password)
+            # self.
+
+            self.save_creditials(new_email, new_password)
         elif new_email == '' and new_password == '':
             # hasło i email puste
-            pass
+            expect(self.h2_change_email_password).not_to_be_visible()
+
         else:
             # Oba pola uzupełnione
-            pass
+            self.change_passw_checkbox.click()
+            self.change_email_checkbox.click()
+            self.current_password_input.fill(PASSWORD)
+            # nowe haslo
+            self.new_password_input.fill(new_password)
+            # potwierdz haslo
+            self.confirm_passw_input.fill(new_password)
+            expect(self.h2_change_email_password).to_have_text("Zmień hasło")
 
-
+            self.save_creditials(new_email, new_password)
+            
+            self.save_creditials(new_email, new_password)
+            expect(self.h2_change_email_password).to_have_text("Zmień adres E-mail i hasło")
