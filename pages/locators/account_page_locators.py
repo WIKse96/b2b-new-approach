@@ -7,11 +7,12 @@ class AccountPageLocators:
     CONTACT_DATA = "//div[@class='box box-information']/div[@class='box-content']/p"
     CHANGE_CONTACT_DATA = "//div[@class='box box-information']//span[contains(text(),'Zmień')]"
     DATA_P = "//div[@class='box box-information']//span[contains(text(),'Zmień')]"
-    H2_PASS_OR_EMAIL = "//span[@class='change-email-password']"
+    H2_PASS_OR_EMAIL = "//span[@data-title='change-email-password']"
     CURRENT_PASSW_ERROR = "//div[@id='current-password-error']"
     CURRENT_EMAIL_ERROR = "//div[@id='email-error']"
     NEW_PASSW_ERROR = "//div[@id='password-error']"
     CONFIRM_PASSW_ERROR = "//div[@id='password-confirmation-error']"
+
 
     # metody dla get by text, role i label
     @staticmethod
@@ -25,7 +26,7 @@ class AccountPageLocators:
         return page.get_by_label("E-mail", exact=True)
     @staticmethod
     def new_password_input(page: Page):
-        return page.get_by_text("Zmień hasło")
+        return page.get_by_label("Nowe hasło").first
     @staticmethod
     def current_password_input(page: Page):
         return page.get_by_label("Bieżące hasło")

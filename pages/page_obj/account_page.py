@@ -1,9 +1,53 @@
 import time
+import re
 import pytest
 from playwright.sync_api import Page, expect
 from pages.page_obj.base_page import BasePage
 from pages.locators.account_page_locators import AccountPageLocators
 from secret_conf import PASSWORD
+
+
+def is_valid_email(email: str) -> bool:
+    if "@" not in email or "." not in email:
+        return False
+
+        # Znak "@" nie może być na początku i końcu
+    if email.startswith("@") or email.endswith("@"):
+        return False
+
+        # Znak "." nie może być na początku i końcu
+    if email.startswith(".") or email.endswith("."):
+        return False
+
+        # Sprawdź, czy po "@" są przynajmniej dwa znaki przed "."
+    at_index = email.index("@")
+    dot_index = email.rfind(".")
+
+    if dot_index < at_index + 3:  # Minimalna liczba znaków między "@" a "."
+        return False
+
+    return True
+
+
+def is_valid_password(password: str) -> bool:
+    # Sprawdź minimalną długość hasła
+    if len(password) < 8:
+        return False
+
+    # Definiowanie klas znaków
+    has_lower = bool(re.search(r'[a-z]', password))  # Małe litery
+    has_upper = bool(re.search(r'[A-Z]', password))  # Wielkie litery
+    has_digit = bool(re.search(r'\d', password))  # Cyfry
+    has_special = bool(re.search(r'[!@#$%^&*(),.?":{}|<>]', password))  # Znaki specjalne
+
+    # Zliczanie ilości różnych klas znaków
+    classes_count = sum([has_lower, has_upper, has_digit, has_special])
+
+    # Sprawdzenie, czy hasło zawiera przynajmniej 3 różne klasy znaków
+    if classes_count < 3:
+        return False
+
+    return True
 
 
 class AccountPage(BasePage):
@@ -88,18 +132,20 @@ class AccountPage(BasePage):
 
     def change_creditials(self, new_email: str, new_password: str):
         self.change_contact_data_btn.click()
+        # self.page.pause()
         if new_email != '' and new_password == '':
             # Jeśli wpisany jest email a hasło puste
             self.change_email_checkbox.click()
             expect(self.h2_change_email_password).to_have_text("Zmień adres email")
             self.email_input.fill(new_email)  # uzupełnij pole email
-            self.current_password_input(PASSWORD)  # uzupełnij pole hasło
-            # Kliknij zapisz
-            self.save_creditials(new_email, new_password)
+            self.current_password_input.fill(PASSWORD)  # uzupełnij pole hasło
+            return
 
         elif new_email == '' and new_password != '':
             # jeśli email pusty, a haslo uzupelnione
             self.change_passw_checkbox.click()
+            # # Ustaw email pusty
+
             # aktualne haslo
             self.current_password_input.fill(PASSWORD)
             # nowe haslo
@@ -107,27 +153,39 @@ class AccountPage(BasePage):
             # potwierdz haslo
             self.confirm_passw_input.fill(new_password)
             expect(self.h2_change_email_password).to_have_text("Zmień hasło")
-
-            self.save_creditials(new_email, new_password)
-            # self.
-
-            self.save_creditials(new_email, new_password)
+            return
         elif new_email == '' and new_password == '':
             # hasło i email puste
             expect(self.h2_change_email_password).not_to_be_visible()
+            self.page.context.close()
+            # Dodałem return aby nie wykonywac juz dalej instrukcji
+            return
 
         else:
             # Oba pola uzupełnione
             self.change_passw_checkbox.click()
             self.change_email_checkbox.click()
+            # Nowy email
+            self.email_input.fill(new_email)
+            # Potwierdzenie hasła
             self.current_password_input.fill(PASSWORD)
             # nowe haslo
             self.new_password_input.fill(new_password)
             # potwierdz haslo
             self.confirm_passw_input.fill(new_password)
-            expect(self.h2_change_email_password).to_have_text("Zmień hasło")
-
-            self.save_creditials(new_email, new_password)
-            
-            self.save_creditials(new_email, new_password)
             expect(self.h2_change_email_password).to_have_text("Zmień adres E-mail i hasło")
+
+
+        # Kliknij zapisz
+        self.save_creditials(new_email, new_password)
+        # Sprawdzenie walidacji emaila
+        if not is_valid_email(new_email):
+            expect(self.email_Error).to_be_visible()
+        else:
+            expect(self.email_Error).not_to_be_visible()
+        # Sprawdzenie walidacji hasła
+        if not is_valid_password(new_password):
+            expect(self.new_password_Error).to_be_visible()
+        else:
+            expect(self.new_password_Error).not_to_be_visible()
+

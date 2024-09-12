@@ -26,6 +26,10 @@ def test_set_default(account_page: AccountPage):
 @pytest.mark.parametrize('new_email, new_passw',
                          [
                              ('testertestowyse@gmail.com', 'test123'),
+                            ('testertestowyse@gmail.com', 'test123AWE'),
+                            ('testertestowyse@gmail.com', '2'),
+                            ('testertestowyse@gmail.com', '@#1'),
+                            ('test@seart.pl', '77777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777'),
                              ('', ''),
                              ('', 'test132*'),
                              ('testertestowyse@gmail.com', ''),
@@ -33,5 +37,5 @@ def test_set_default(account_page: AccountPage):
                          ])
 def test_change_creditials(account_page: AccountPage, new_email: str, new_passw: str):
     account_page.load(account_page.path)
-    account_page.change_creditials('', '')
+    account_page.change_creditials(new_email, new_passw)
 
